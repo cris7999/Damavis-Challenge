@@ -23,9 +23,9 @@ def inBoard(board, corX, corY):
         return False
 
 
-validPathLength = 0
+numberOfPaths = 0
 def numberOfAvailableDifferentPaths(board, snake, depth):
-    global validPathLength
+    global numberOfPaths
     around_array = [[1, 0], [-1, 0], [0, 1], [0, -1]]
 
     if depth >0:
@@ -36,22 +36,34 @@ def numberOfAvailableDifferentPaths(board, snake, depth):
             if (future_mov not in snake) and inBoard(board,future_mov[0],future_mov[1]):
                 snakeModified = [future_mov] + snake
                 snake.append(tail)
-                printSnake(board,snakeModified)
                 numberOfAvailableDifferentPaths(board, snakeModified, depth - 1)
 
                 if depth == 1:
-                    validPathLength = validPathLength + 1
+                    numberOfPaths = numberOfPaths + 1
 
             else:
                 snake.append(tail)
 
 
+print("Test 1:")
 board = [4,3]
 snake =[[2,2], [3,2], [3,1], [3,0], [2,0], [1,0], [0,0]]
 depth = 3
-
-print("Initial pos")
-printSnake(board,snake)
 numberOfAvailableDifferentPaths(board, snake, depth)
+print(numberOfPaths)
 
-print("Final result:" + str(validPathLength))
+print("Test 2:")
+numberOfPaths=0
+board = [2, 3]
+snake = [[0,2], [0,1], [0,0], [1,0], [1,1], [1,2]]
+depth = 10
+numberOfAvailableDifferentPaths(board, snake, depth)
+print(numberOfPaths)
+
+print("Test 3:")
+numberOfPaths=0
+board = [10, 10]
+snake = [[5,5], [5,4], [4,4], [4,5]]
+depth = 4
+numberOfAvailableDifferentPaths(board, snake, depth)
+print(numberOfPaths)
