@@ -26,23 +26,25 @@ def inBoard(board, corX, corY):
 numberOfPaths = 0
 def numberOfAvailableDifferentPaths(board, snake, depth):
     global numberOfPaths
-    around_array = [[1, 0], [-1, 0], [0, 1], [0, -1]]
+    around_array = [[1, 0], [-1, 0], [0, 1], [0, -1]] #array with all possible movements
 
     if depth >0:
         for around in around_array:
-            future_mov = list(np.add(snake[0], around))
+            future_mov = list(np.add(snake[0], around)) #Creating the next possible movement
             tail = snake.pop()
 
             if (future_mov not in snake) and inBoard(board,future_mov[0],future_mov[1]):
                 snakeModified = [future_mov] + snake
-                snake.append(tail)
+
+                snake.append(tail) #Saving the tail for can calculate next movements
+
                 numberOfAvailableDifferentPaths(board, snakeModified, depth - 1)
 
                 if depth == 1:
-                    numberOfPaths = numberOfPaths + 1
+                    numberOfPaths = numberOfPaths + 1 #We consider a new path only when it was completed
 
             else:
-                snake.append(tail)
+                snake.append(tail) #if the movement is not correct, will save the tail for next movement
 
 
 print("Test 1:")
